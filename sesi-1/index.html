@@ -1,50 +1,81 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dokumen HTML Dasar</title>
+  <title>Website Table Only</title>
 </head>
 <body>
-    <a href="https://google.com">
-        <img src="gambar/gambar.jpg" alt="Gambar Contoh" width="200">
-    </a>
 
-    <a href="https://google.coms">
-        <img src="gambar/gambar.jpg" alt="Gambar Contoh" width="200">
-    </a>
+<!-- Navbar -->
+<table border="1" width="100%">
+  <tr>
+    <td>Brand</td>
+    <td align="right">
+      <a href="#">Header</a> | 
+      <a href="#">Biodata</a> | 
+      <a href="#">Portofolio</a>
+    </td>
+  </tr>
+</table>
 
-    <img src="https://asset.kompas.com/crops/GOOVIIzAuGQtw2BYRQseFFaSsA4=/162x108:1459x972/1200x800/data/photo/2025/09/21/68cf4a7179d83.jpeg" alt="Gambar Contoh" width="200">
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nomor</th>
-                <th>Judul</th>
-                <th>Harga</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>Buku Pemrograman</td>
-                <td>Rp50.000</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Buku Desain</td>
-                <td>Rp40.000</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Buku Desain</td>
-                <td>Rp40.000</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Buku Bisnis</td>
-                <td>Rp60.000</td>
-            </tr>
-        </tbody>
-    </table>
+<!-- Header -->
+<table border="1" width="100%">
+  <tr>
+    <td width="50%">
+      <h2>Selamat Datang di Website Saya</h2>
+      <p>Ini adalah contoh header dengan dua kolom. Kolom kiri berisi teks seperti ini.</p>
+      <button>Pelajari Lebih Lanjut</button>
+    </td>
+    <td width="50%" align="right">
+      <img src="pic_trulli.jpg" alt="header image">
+    </td>
+  </tr>
+</table>
+
+<!-- About Me -->
+<table border="1" width="100%">
+  <tr>
+    <td colspan="3" align="center">
+      <h2>About Me</h2>
+      <p>A brief introduction about myself</p>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">Full Name</td>
+    <td align="center">Education</td>
+    <td align="center">Pekerjaan</td>
+  </tr>
+  <tr>
+    <td align="center">Contact</td>
+    <td align="center">Hobi</td>
+    <td align="center">Alamat</td>
+  </tr>
+</table>
+
+<!-- Portofolio -->
+<table border="1" width="100%">
+  <tr>
+    <td colspan="3" align="center">
+      <h2>Portofolio</h2>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="porto.jpeg" alt="Proyek 1"><br>
+      <b>Proyek 1</b><br>
+      Deskripsi proyek 1.
+    </td>
+    <td align="center">
+      <img src="porto.jpeg" alt="Proyek 2"><br>
+      <b>Proyek 2</b><br>
+      Deskripsi proyek 2.
+    </td>
+    <td align="center">
+      <img src="porto.jpeg" alt="Proyek 3"><br>
+      <b>Proyek 3</b><br>
+      Deskripsi proyek 3.
+    </td>
+  </tr>
+</table>
+
 </body>
 </html>
