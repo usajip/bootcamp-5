@@ -1,0 +1,174 @@
+/* =========== Variabel & Reset ringan =========== */
+:root{
+    --gap:16px;
+    --max-width:1100px;
+    --radius:8px;
+    --bg:#f4f6f8;
+    --card:#ffffff;
+    --muted:#666;
+    --accent:#0b76ef;
+}
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:var(--bg);
+    color:#222;
+    line-height:1.45;
+}
+
+/* =========== Container pusat =========== */
+.container{
+    max-width:var(--max-width);
+    margin:0 auto;
+    padding:20px;
+    gap:var(--gap);
+    display:block;
+}
+
+/* =========== NAVBAR =========== */
+.navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:12px 16px;
+    border-radius:var(--radius);
+    border:1px solid #e6e9ee;
+    flex-wrap:wrap; /* agar pada mobile link bisa pindah baris */
+    background: linear-gradient(90deg, rgba(220, 38, 38, 1) 0%, rgba(239, 68, 68, 1) 35%, rgba(248, 113, 113, 1) 100%);
+    color: white;
+}
+.brand{
+    font-weight:700;
+    font-size:1.05rem;
+}
+.nav-links{
+    display:flex;
+    gap:12px;
+    width:100%;
+    justify-content:center; /* default mobile: tampil di tengah bawah brand */
+    margin-top:8px;
+}
+.nav-links a{
+    text-decoration:none;
+    color: white;
+    font-weight:600;
+    padding:6px 10px;
+    border-radius:6px;
+}
+.nav-links a:hover{ background:#000; }
+
+/* =========== HERO / HEADER =========== */
+.hero{
+    margin-top:var(--gap);
+    background:var(--card);
+    padding:18px;
+    border-radius:var(--radius);
+    border:1px solid #e6e9ee;
+    display:block; /* mobile: stack */
+}
+.hero-content h2{ margin:0 0 10px 0; font-size:1.3rem }
+.hero-content p{ margin:0 0 12px 0; color:var(--muted) }
+.btn{
+    display:inline-block;
+    padding:10px 14px;
+    border-radius:8px;
+    background:var(--accent);
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+    border:none;
+    cursor:pointer;
+}
+.hero-img{ margin-top:12px }
+.hero-img img{ width:100%; height:auto; display:block; border-radius:8px }
+
+/* =========== ABOUT GRID =========== */
+.about{
+    margin-top:var(--gap);
+    background:var(--card);
+    padding:18px;
+    border-radius:var(--radius);
+    border:1px solid #e6e9ee;
+}
+.about-title{ text-align:center; margin-bottom:14px }
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr; /* mobile: 1 kolom */
+    gap:12px;
+}
+.about-item{
+    padding:12px;
+    background:#fbfcfe;
+    border-radius:8px;
+    border:1px solid #eef2f6;
+    text-align:center;
+    font-weight:600;
+    color:#111;
+}
+
+/* =========== PORTFOLIO GRID =========== */
+.portfolio{
+    margin-top:var(--gap);
+    background:var(--card);
+    padding:18px;
+    border-radius:var(--radius);
+    border:1px solid #e6e9ee;
+}
+.portfolio-grid{
+    display:grid;
+    grid-template-columns:1fr; /* mobile: 1 kolom */
+    gap:16px;
+    margin-top:12px;
+}
+.card{
+    background:#fff;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #eef2f6;
+    text-align:center;
+}
+.card img{ width:100%; height:auto; display:block; border-radius:6px; margin-bottom:8px; }
+
+/* =========== BREAKPOINTS (mobile-first) =========== */
+/* Tablet: dari 601px ke atas */
+@media (min-width: 601px){
+    .nav-links{
+    width:auto;
+    justify-content:flex-end;
+    margin-top:0;
+    }
+    .hero{
+    display:grid;
+    grid-template-columns: 1fr 1fr; /* dua kolom di tablet+ */
+    align-items:center;
+    gap:20px;
+    }
+    .hero-img{ margin-top:0 }
+    .about-grid{
+    grid-template-columns: repeat(2,1fr); /* 2 kolom di tablet */
+    }
+    .portfolio-grid{
+    grid-template-columns: repeat(2,1fr); /* 2 kolom di tablet */
+    }
+}
+
+/* Desktop: dari 1025px ke atas */
+@media (min-width: 1025px){
+    .hero-content h2{ font-size:1.6rem }
+    .hero{ grid-template-columns: 60% 40%; } /* hero kiri lebih lebar di desktop */
+    .about-grid{
+    grid-template-columns: repeat(3,1fr); /* 3 kolom */
+    }
+    .portfolio-grid{
+    grid-template-columns: repeat(3,1fr); /* 3 kolom */
+    }
+    .nav-links a{ padding:8px 12px }
+}
+
+/* kecilkan teks pada layar sangat kecil agar tidak pecah */
+@media (max-width: 360px){
+    .brand{ font-size:0.95rem }
+    .hero-content h2{ font-size:1.1rem }
+}

@@ -1,0 +1,21 @@
+p{
+    color: red;
+}
+a{
+    color: green;
+}
+
+.teks-merah{
+    color: red;
+}
+.teks-blue{
+    color: blue;
+}
+
+.font-bold{
+    font-weight: bold;
+}
+
+#id2{
+    background-color: black;
+}

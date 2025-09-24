@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Website Responsive (Tanpa Table)</title>
+  <link rel="stylesheet" href="tugas.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- NAVBAR (menggantikan table navbar) -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+      <div class="brand">Brand</div>
+      <div class="nav-links" role="menubar" aria-label="Navigation links">
+        <a href="#" role="menuitem">Header</a>
+        <a href="#" role="menuitem">Biodata</a>
+        <a href="#" role="menuitem">Portofolio</a>
+      </div>
+    </nav>
+
+    <!-- HERO / HEADER -->
+    <header class="hero" role="banner">
+      <div class="hero-content">
+        <h2>Selamat Datang di Website Saya</h2>
+        <p>Ini adalah contoh header dengan dua kolom. Kolom kiri berisi teks seperti ini.</p>
+        <button class="btn">Pelajari Lebih Lanjut</button>
+      </div>
+      <div class="hero-img">
+        <!-- ganti src dengan path gambar yang benar -->
+        <img src="pic_trulli.jpg" alt="Gambar header contoh">
+      </div>
+    </header>
+
+    <!-- ABOUT ME -->
+    <section class="about" id="about">
+      <div class="about-title">
+        <h2>About Me</h2>
+        <p style="margin:6px 0 0;color:var(--muted)">A brief introduction about myself</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-item">Full Name</div>
+        <div class="about-item">Education</div>
+        <div class="about-item">Pekerjaan</div>
+        <div class="about-item">Contact</div>
+        <div class="about-item">Hobi</div>
+        <div class="about-item">Alamat</div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section class="portfolio" id="portfolio">
+      <div style="text-align:center">
+        <h2>Portofolio</h2>
+      </div>
+
+      <div class="portfolio-grid">
+        <article class="card">
+          <img src="porto.jpeg" alt="Proyek 1">
+          <b>Proyek 1</b>
+          <p style="margin:8px 0 0;color:var(--muted)">Deskripsi proyek 1.</p>
+        </article>
+
+        <article class="card">
+          <img src="porto.jpeg" alt="Proyek 2">
+          <b>Proyek 2</b>
+          <p style="margin:8px 0 0;color:var(--muted)">Deskripsi proyek 2.</p>
+        </article>
+
+        <article class="card">
+          <img src="porto.jpeg" alt="Proyek 3">
+          <b>Proyek 3</b>
+          <p style="margin:8px 0 0;color:var(--muted)">Deskripsi proyek 3.</p>
+        </article>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
