@@ -16,6 +16,9 @@ body{
     color:#222;
     line-height:1.45;
 }
+.header-blue{
+    background-color: blue;padding:10px;border: 1px solid black;text-align:center;
+}
 
 /* =========== Container pusat =========== */
 .container{
