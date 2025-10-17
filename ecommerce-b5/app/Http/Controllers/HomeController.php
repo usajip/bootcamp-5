@@ -8,6 +8,8 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $title = "Home Page";
+        $phone_number = "081234567890";
         $products = [
                     [
                         'id' => 1,
@@ -31,12 +33,19 @@ class HomeController extends Controller
                         'image' => 'https://eduwork.id/images/privatenew/thumbnail/mern.webp',
                     ],
                 ];
-        return view('home', compact('products'));
+        return view('home', compact('products', 'title', 'phone_number'));
     }
 
     public function detailProduct($id)
     {
-        return "Detail Product ID: " . $id;
+        $product = [
+                        'id' => $id,
+                        'name' => 'Product One',
+                        'description' => 'This is a description for product one. It is a great product with many features.',
+                        'price' => 150000,
+                        'image' => 'https://eduwork.id/images/privatenew/thumbnail/mern.webp',
+                    ];
+        return view('product', compact('product'));
     }
 
     public function cart()

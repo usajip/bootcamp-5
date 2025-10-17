@@ -1,0 +1,1 @@
+<button type="{{ $type }}" class="btn {{ $bgColor }} btn-{{ $size }}">{{ $slot }}</button>
