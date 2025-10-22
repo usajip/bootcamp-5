@@ -17,6 +17,7 @@ class ProductCard extends Component
         public float $price,
         public string $image,
         public int $id,
+        public string $category,
     )
     {
         //
