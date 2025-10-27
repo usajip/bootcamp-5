@@ -12,7 +12,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::simplePaginate(5);
+        return view('admin.products.index', compact('products'));
     }
 
     /**
