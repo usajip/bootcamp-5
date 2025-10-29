@@ -36,11 +36,24 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ "Rp " . number_format($category->total_price, 0, ",", "."); }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <button onclick="openEditModal({{ $category->id }}, '{{ $category->name }}', '{{ $category->description }}')" class="text-white mr-3 bg-indigo-600 p-1 rounded-md">Edit</button>
-                                    <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this category?')">
+                                    <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="inline delete-category-form" data-category-id="{{ $category->id }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-white mr-3 bg-red-600 p-1 rounded-md">Delete</button>
+                                        <button type="button" onclick="openDeleteCategoryModal({{ $category->id }})" class="text-white mr-3 bg-red-600 p-1 rounded-md">Delete</button>
                                     </form>
+    <!-- Delete Category Confirmation Modal -->
+    <div id="deleteCategoryModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+        <div class="flex justify-center items-center min-h-screen">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+                <h3 class="text-lg font-semibold mb-4">Confirm Delete</h3>
+                <p class="mb-4">Are you sure you want to delete this category?</p>
+                <div class="flex justify-end space-x-2">
+                    <button type="button" onclick="closeDeleteCategoryModal()" class="px-4 py-2 bg-gray-300 rounded-md">Cancel</button>
+                    <button type="button" onclick="submitDeleteCategoryForm()" class="px-4 py-2 bg-red-600 text-white rounded-md">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
                                 </td>
                             </tr>
                             @endforeach
@@ -122,6 +135,22 @@
 
         function closeEditModal() {
             document.getElementById('editModal').classList.add('hidden');
+        }
+        let deleteCategoryId = null;
+        function openDeleteCategoryModal(categoryId) {
+            deleteCategoryId = categoryId;
+            document.getElementById('deleteCategoryModal').classList.remove('hidden');
+        }
+        function closeDeleteCategoryModal() {
+            deleteCategoryId = null;
+            document.getElementById('deleteCategoryModal').classList.add('hidden');
+        }
+        function submitDeleteCategoryForm() {
+            if (deleteCategoryId) {
+                const form = document.querySelector(`form.delete-category-form[data-category-id='${deleteCategoryId}']`);
+                if (form) form.submit();
+            }
+            closeDeleteCategoryModal();
         }
     </script>
 </x-app-layout>

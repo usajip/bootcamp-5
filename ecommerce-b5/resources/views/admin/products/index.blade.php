@@ -34,15 +34,46 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $product->stock }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ "Rp " . number_format($product->price, 0, ",", "."); }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->name }}" class="w-16 h-16 object-cover">
+                                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-16 h-16 object-cover">
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <a href="{{ route('products.edit', $product->id) }}" class="text-white mr-3 bg-indigo-600 p-1 rounded-md">Edit</a>
-                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this product?')">
+                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="inline delete-form" data-product-id="{{ $product->id }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-white mr-3 bg-red-600 p-1 rounded-md">Delete</button>
+                                        <button type="button" onclick="openDeleteModal({{ $product->id }})" class="text-white mr-3 bg-red-600 p-1 rounded-md">Delete</button>
                                     </form>
+                                    <!-- Delete Confirmation Modal -->
+                                    <div id="deleteModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+                                        <div class="flex justify-center items-center min-h-screen">
+                                            <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+                                                <h3 class="text-lg font-semibold mb-4">Confirm Delete</h3>
+                                                <p class="mb-4">Are you sure you want to delete this product?</p>
+                                                <div class="flex justify-end space-x-2">
+                                                    <button type="button" onclick="closeDeleteModal()" class="px-4 py-2 bg-gray-300 rounded-md">Cancel</button>
+                                                    <button type="button" onclick="submitDeleteForm()" class="px-4 py-2 bg-red-600 text-white rounded-md">Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        let deleteFormId = null;
+                                        function openDeleteModal(productId) {
+                                            deleteFormId = productId;
+                                            document.getElementById('deleteModal').classList.remove('hidden');
+                                        }
+                                        function closeDeleteModal() {
+                                            deleteFormId = null;
+                                            document.getElementById('deleteModal').classList.add('hidden');
+                                        }
+                                        function submitDeleteForm() {
+                                            if (deleteFormId) {
+                                                const form = document.querySelector(`form.delete-form[data-product-id='${deleteFormId}']`);
+                                                if (form) form.submit();
+                                            }
+                                            closeDeleteModal();
+                                        }
+                                    </script>
                                 </td>
                             </tr>
                             @endforeach
