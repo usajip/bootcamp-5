@@ -47,14 +47,13 @@ class HomeController extends Controller
 
     public function detailProduct($id)
     {
-        $product = [
-                        'id' => $id,
-                        'name' => 'Product One',
-                        'description' => 'This is a description for product one. It is a great product with many features.',
-                        'price' => 150000,
-                        'image' => 'https://eduwork.id/images/privatenew/thumbnail/mern.webp',
-                    ];
-        return view('product', compact('product'));
+        $product = Product::with('category')->findOrFail($id);
+        $recommendations = Product::where('product_category_id', $product->product_category_id)
+                            ->where('id', '!=', $product->id)
+                            ->orderBy('created_at', 'desc')
+                            ->take(4)
+                            ->get();
+        return view('product', compact('product', 'recommendations'));
     }
 
     public function cart()

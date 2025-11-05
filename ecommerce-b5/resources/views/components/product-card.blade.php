@@ -1,6 +1,6 @@
 <div class="card h-100">
     @if($image)
-        <img src="{{ $image }}" class="card-img-top" alt="{{ $name }}">
+        <img src="{{ $image }}" class="img-fluid" style="max-width: 200px" alt="{{ $name }}">
     @else
         <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-top" alt="No Image">
     @endif

@@ -16,6 +16,7 @@ class ProductCategoryController extends Controller
                         ->withSum('products as total_stock' , 'stock')
                         ->withSum('products as total_price' , 'price')
                         ->paginate(5);
+
         return view('admin.categories.index', compact('categories'));
     }
 

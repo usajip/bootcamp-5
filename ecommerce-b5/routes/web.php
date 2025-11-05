@@ -13,10 +13,8 @@ Route::get('cart', [HomeController::class, 'cart'])->name('cart');
 Route::get('checkout', [HomeController::class, 'checkout'])->name('checkout');
 
 Route::middleware('auth')->group(function () {
-    
     Route::prefix('dashboard')
-        ->middleware('admin')
-        ->group(function () {
+        ->middleware('admin')->group(function () {
         // Route::get('/index', function () {
         //     return view('dashboard');
         // })->middleware(['auth', 'verified'])->name('dashboard');
