@@ -8,6 +8,7 @@
     </header>
 
     <div class="py-12">
+        @include('layouts.return_info')
         <div class="max-w-[800px] mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-auto shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
@@ -15,19 +16,19 @@
                         @csrf
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700">Name:</label>
-                            <input type="text" name="name" id="name" class="w-full border border-gray-300 p-2 rounded-md" required>
+                            <input type="text" name="name" value="{{ old('name') }}" id="name" class="w-full border border-gray-300 p-2 rounded-md" required>
                         </div>
                         <div class="mb-4">
                             <label for="description" class="block text-gray-700">Description:</label>
-                            <textarea name="description" id="description" class="w-full border border-gray-300 p-2 rounded-md" required></textarea>
+                            <textarea name="description" id="description" class="w-full border border-gray-300 p-2 rounded-md" required>{{ old('description') }}</textarea>
                         </div>
                         <div class="mb-4">
                             <label for="stock" class="block text-gray-700">Stock:</label>
-                            <input type="number" name="stock" id="stock" class="w-full border border-gray-300 p-2 rounded-md" min="0" required>
+                            <input type="number" name="stock" id="stock" class="w-full border border-gray-300 p-2 rounded-md" min="0" required value="{{ old('stock') }}">
                         </div>
                         <div class="mb-4">
                             <label for="price" class="block text-gray-700">Price:</label>
-                            <input type="text" name="price" id="price" class="w-full border border-gray-300 p-2 rounded-md" placeholder="Rp 0" required autocomplete="off">
+                            <input type="number" name="price" id="price" class="w-full border border-gray-300 p-2 rounded-md" step="1000" placeholder="Rp 0" required autocomplete="off" value="{{ old('price') }}">
                         </div>
                         <div class="mb-4">
                             <label for="image" class="block text-gray-700">Image:</label>
@@ -39,7 +40,7 @@
                             <select name="product_category_id" id="product_category_id" class="w-full border border-gray-300 p-2 rounded-md" required>
                                 <option value="" disabled selected>Select a category</option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}" {{ old('product_category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -51,7 +52,7 @@
             </div>
         </div>
     </div>
-    <script src="/js/format-rupiah.js"></script>
+    {{-- <script src="/js/format-rupiah.js"></script> --}}
     <script>
         document.getElementById('image').addEventListener('change', function(event) {
             const [file] = event.target.files;

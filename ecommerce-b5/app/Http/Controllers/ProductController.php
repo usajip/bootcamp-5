@@ -13,7 +13,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->simplePaginate(5); //all(), get(), paginate()
+        $products = Product::with('category')
+                        ->orderBy('id', 'desc')
+                        ->paginate(5); //all(), get(), paginate()
         return view('admin.products.index', compact('products'));
     }
 
@@ -31,7 +33,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:100',
+            'description' => 'required|string|max:500',
+            'price' => 'required|integer|min:0',
+            'stock' => 'required|integer|min:0',
+            'image'=> 'required|image|mimes:jpg,jpeg,png,webp|max:1024',
+            'product_category_id' => 'required|exists:product_categories,id',
+        ]);
+
+        $imagePath = $request->file('image')->store('products', 'images');
+        
+        Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'image' => 'images/'.$imagePath,
+            'product_category_id' => $request->product_category_id,
+        ]);
+
+        return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
 
     /**

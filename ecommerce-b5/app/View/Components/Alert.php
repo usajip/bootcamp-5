@@ -13,6 +13,7 @@ class Alert extends Component
      */
     public function __construct(
         public string $type = 'warning',
+        public string $cssStyle = 'bootstrap', // 'bootstrap' or 'tailwind'
     )
     {
         //

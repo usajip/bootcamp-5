@@ -33,7 +33,22 @@ class ProductCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:100|unique:product_categories,name',
+            'description' => 'nullable|string|max:255',
+        ]);
+
+        ProductCategory::create([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        // $category = new ProductCategory;
+        // $category->name = $request->name;
+        // $category->description = $request->description;
+        // $category->save();
+
+        return redirect()->back()->with('success', 'Product category created successfully.');
     }
 
     /**

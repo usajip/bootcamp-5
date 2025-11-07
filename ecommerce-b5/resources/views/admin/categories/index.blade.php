@@ -9,6 +9,7 @@
     </header>
 
     <div class="py-12">
+        @include('layouts.return_info')
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-auto shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
@@ -41,19 +42,19 @@
                                         @method('DELETE')
                                         <button type="button" onclick="openDeleteCategoryModal({{ $category->id }})" class="text-white mr-3 bg-red-600 p-1 rounded-md">Delete</button>
                                     </form>
-    <!-- Delete Category Confirmation Modal -->
-    <div id="deleteCategoryModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
-        <div class="flex justify-center items-center min-h-screen">
-            <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-                <h3 class="text-lg font-semibold mb-4">Confirm Delete</h3>
-                <p class="mb-4">Are you sure you want to delete this category?</p>
-                <div class="flex justify-end space-x-2">
-                    <button type="button" onclick="closeDeleteCategoryModal()" class="px-4 py-2 bg-gray-300 rounded-md">Cancel</button>
-                    <button type="button" onclick="submitDeleteCategoryForm()" class="px-4 py-2 bg-red-600 text-white rounded-md">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
+                                    <!-- Delete Category Confirmation Modal -->
+                                    <div id="deleteCategoryModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+                                        <div class="flex justify-center items-center min-h-screen">
+                                            <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+                                                <h3 class="text-lg font-semibold mb-4">Confirm Delete</h3>
+                                                <p class="mb-4">Are you sure you want to delete this category?</p>
+                                                <div class="flex justify-end space-x-2">
+                                                    <button type="button" onclick="closeDeleteCategoryModal()" class="px-4 py-2 bg-gray-300 rounded-md">Cancel</button>
+                                                    <button type="button" onclick="submitDeleteCategoryForm()" class="px-4 py-2 bg-red-600 text-white rounded-md">Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach
@@ -77,11 +78,11 @@
                     @csrf
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700">Name</label>
-                        <input type="text" name="name" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                        <input type="text" name="name" value="{{ old('name') }}" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
                     </div>
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700">Description</label>
-                        <textarea name="description" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"></textarea>
+                        <textarea name="description" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">{{ old('description') }}</textarea>
                     </div>
                     <div class="flex justify-end space-x-2">
                         <button type="button" onclick="closeAddModal()" class="px-4 py-2 bg-gray-300 rounded-md">Cancel</button>
