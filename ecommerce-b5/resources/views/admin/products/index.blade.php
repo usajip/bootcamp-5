@@ -32,7 +32,9 @@
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $product->id }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $product->name }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $product->description }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ strlen($product->description) > 20 ? substr_replace($product->description, '...', 20) : $product->description }}
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $product->stock }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ "Rp " . number_format($product->price, 0, ",", "."); }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -40,7 +42,8 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $product->category->name }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ route('products.edit', $product->id) }}" class="text-white mr-3 bg-indigo-600 p-1 rounded-md">Edit</a>
+                                    <a href="{{ route('product.detail', $product->id) }}" target="_blank" class="text-white mr-3 bg-green-600 p-1 rounded-md">View</a>
+                                    <a href="{{ route('products.edit', $product) }}" class="text-white mr-3 bg-indigo-600 p-1 rounded-md">Edit</a>
                                     <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="inline delete-form" data-product-id="{{ $product->id }}">
                                         @csrf
                                         @method('DELETE')

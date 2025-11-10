@@ -49,7 +49,7 @@
                             </select>
                         </div>
                         <div>
-                            <button type="submit" class="text-white bg-blue-600 px-4 py-2 rounded-md">Create Product</button>
+                            <button type="submit" class="text-white bg-blue-600 px-4 py-2 rounded-md">Update Product</button>
                         </div>
                     </form>
                 </div>

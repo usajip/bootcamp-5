@@ -70,16 +70,37 @@ class ProductCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProductCategory $productCategory)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:100|unique:product_categories,name,' . $id,
+            'description' => 'nullable|string|max:255',
+        ]);
+        $productCategory = ProductCategory::findOrFail($id);
+
+        $productCategory->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        return redirect()->back()->with('success', 'Product category: <b>' . $productCategory->name . '</b> updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductCategory $productCategory)
+    public function destroy($id)
     {
-        //
+        $productCategory = ProductCategory::withCount('products')->findOrFail($id);
+
+        if($productCategory->products_count > 0){
+            return redirect()->back()->withErrors([
+                'Cannot delete category: <b>' . $productCategory->name . '</b> because it has associated products.'
+                ]);
+        }
+
+        $productCategory->delete();
+
+        return redirect()->back()->with('success', 'Product category: <b>' . $productCategory->name . '</b> deleted successfully.');
     }
 }

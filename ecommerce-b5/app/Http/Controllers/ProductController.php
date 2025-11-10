@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -78,7 +79,35 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:100',
+            'description' => 'required|string|max:500',
+            'price' => 'required|integer|min:0',
+            'stock' => 'required|integer|min:0',
+            'image'=> 'nullable|image|mimes:jpg,jpeg,png,webp|max:1024',
+            'product_category_id' => 'required|exists:product_categories,id',
+        ]);
+
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($product->image 
+                && 
+                Storage::disk('images')->exists(str_replace('images/', '', $product->image))) {
+                Storage::disk('images')->delete(str_replace('images/', '', $product->image));
+            }
+            // Upload new image
+            $imagePath = $request->file('image')->store('products', 'images');
+            $product->image = 'images/'.$imagePath;
+        }
+
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->stock = $request->stock;
+        $product->product_category_id = $request->product_category_id;
+        $product->save();
+
+        return redirect()->route('products.index')->with('success', 'Product <b>' . $product->name . '</b> updated successfully.');
     }
 
     /**
@@ -86,6 +115,14 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        // Delete image if exists
+        if ($product->image 
+            && 
+            Storage::disk('images')->exists(str_replace('images/', '', $product->image))) {
+            Storage::disk('images')->delete(str_replace('images/', '', $product->image));
+        }
+
+        $product->delete();
+        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
     }
 }

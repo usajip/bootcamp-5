@@ -36,7 +36,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $category->total_stock }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ "Rp " . number_format($category->total_price, 0, ",", "."); }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <button onclick="openEditModal({{ $category->id }}, '{{ $category->name }}', '{{ $category->description }}')" class="text-white mr-3 bg-indigo-600 p-1 rounded-md">Edit</button>
+                                    <button onclick="openEditModal({{ $category->id }}, '{{ old('name', $category->name) }}', '{{ old('description', $category->description) }}')" class="text-white mr-3 bg-indigo-600 p-1 rounded-md">Edit</button>
                                     <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="inline delete-category-form" data-category-id="{{ $category->id }}">
                                         @csrf
                                         @method('DELETE')
@@ -128,7 +128,7 @@
         }
 
         function openEditModal(id, name, description) {
-            document.getElementById('editForm').action = `dashboard/categories/${id}`;
+            document.getElementById('editForm').action = `/dashboard/categories/${id}`;
             document.getElementById('editName').value = name;
             document.getElementById('editDescription').value = description;
             document.getElementById('editModal').classList.remove('hidden');
