@@ -13,7 +13,7 @@ class DashboardController extends Controller
         $total_product = Product::count();
         $total_stock = Product::sum('stock');
         $total_category = ProductCategory::count();
-        $total_clicks = 105;
+        $total_clicks = Product::sum('click');
 
         // $last_month_transaction  = Transaction::where('created_at', '>=', now()->subMonth())
         // ->where('created_at', '<', now()->startOfMonth())

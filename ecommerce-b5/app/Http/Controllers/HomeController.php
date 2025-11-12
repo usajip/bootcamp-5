@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -53,16 +54,27 @@ class HomeController extends Controller
                             ->orderBy('created_at', 'desc')
                             ->take(4)
                             ->get();
+
+        $is_not_admin = true;
+
+        if(Auth::check()){
+            $is_not_admin = Auth::user()->role !== 'admin';
+        }
+        
+        if($is_not_admin){
+            // Track product clicks using session
+            $clickedProducts = session()->get('clicked_products', []);
+            if (!in_array($id, $clickedProducts)) {
+
+                // Increment click count in database
+                Product::where('id', $id)->increment('click');
+                
+                // Add to session to prevent multiple increments in same session
+                $clickedProducts[] = $id;
+                session()->put('clicked_products', $clickedProducts);
+            }
+        }
+
         return view('product', compact('product', 'recommendations'));
-    }
-
-    public function cart()
-    {
-        return view('cart');
-    }
-
-    public function checkout()
-    {
-        return view('checkout');
     }
 }

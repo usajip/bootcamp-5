@@ -15,7 +15,11 @@
                 <h3>{{ $product->name }}</h3>
                 <p>{{ $product->description }}</p>
                 <p><strong>Price:</strong> Rp{{ number_format($product->price, 0, ',', '.') }}</p>
-                <a href="{{ route('cart') }}" class="btn btn-success">Add to Cart</a>
+                <form action="{{ route('cart.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <button type="submit" class="btn btn-primary">Add to Cart</button>
+                </form>
             </div>
         </div>
         <hr>

@@ -4,13 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class Cart extends Model
 {
-    protected $table = 'transactions';
     protected $fillable = [
-        'total',
-        'status',
+        'quantity',
         'user_id',
+        'product_id',
     ];
 
     public function user()
@@ -18,8 +17,8 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function details()
+    public function product()
     {
-        return $this->hasMany(TransactionDetail::class);
+        return $this->belongsTo(Product::class);
     }
 }
