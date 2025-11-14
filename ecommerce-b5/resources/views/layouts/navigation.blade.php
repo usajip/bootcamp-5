@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Home') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.*')">
+                        {{ __('Cart') }}
+                    </x-nav-link>
                     @if(Auth::user() && Auth::user()->role == 'admin')
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
@@ -26,6 +29,9 @@
                             {{ __('Product') }}
                         </x-nav-link>
                     @endif
+                    <x-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.*')">
+                        {{ __('Transaction') }}
+                    </x-nav-link>
                 </div>
             </div>
 

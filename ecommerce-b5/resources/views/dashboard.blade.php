@@ -46,27 +46,25 @@
         const ctx = document.getElementById('salesChart').getContext('2d');
         
         // Generate tanggal 7 hari terakhir
-        const labels = [];
-        const today = new Date();
-        for (let i = 6; i >= 0; i--) {
-            const date = new Date(today);
-            date.setDate(today.getDate() - i);
-            labels.push(date.toLocaleDateString('id-ID', { 
-                weekday: 'short', 
-                day: 'numeric', 
-                month: 'short' 
-            }));
-        }
+        const labels = [
+            @foreach($labels as $label)
+                '{{ $label }}',
+            @endforeach
+        ];
         
         // Data dummy penjualan (dalam jutaan rupiah)
-        const salesData = [12.5, 8.3, 15.7, 22.1, 18.4, 25.6, 19.8];
+        const salesData = [
+            @foreach($salesData as $data)
+                {{ $data }},
+            @endforeach
+        ];
         
         const salesChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Penjualan (Juta Rp)',
+                    label: 'Penjualan (Rp)',
                     data: salesData,
                     backgroundColor: 'rgba(59, 130, 246, 0.8)',
                     borderColor: 'rgba(59, 130, 246, 1)',
@@ -100,7 +98,7 @@
                         displayColors: false,
                         callbacks: {
                             label: function(context) {
-                                return 'Penjualan: Rp ' + context.parsed.y.toFixed(1) + ' Juta';
+                                return 'Penjualan: Rp ' + context.parsed.y.toFixed(1);
                             }
                         }
                     }
@@ -118,7 +116,7 @@
                             },
                             color: '#6B7280',
                             callback: function(value) {
-                                return 'Rp ' + value + 'M';
+                                return 'Rp ' + value;
                             }
                         }
                     },

@@ -26,6 +26,23 @@
       </form>
       @guest
         <a href="{{ route('login') }}" style="margin-left: 10px;" class="btn btn-primary" type="submit">Login</a>
+      @else
+        <div class="dropdown" style="margin-left: 10px;">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ Auth::user()->name }}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
+            <li><a class="dropdown-item" href="{{ route('transactions.index') }}">Transaction</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="dropdown-item">Logout</button>
+              </form>
+            </li>
+          </ul>
+        </div>
       @endguest
     </div>
   </div>

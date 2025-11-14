@@ -22,6 +22,11 @@ Route::middleware('auth')->group(function () {
     Route::post('checkout/process', [TransactionController::class, 'store'])->name('transaction.store');
     
     Route::get('transaction/{transaction}', [TransactionController::class, 'show'])->name('transaction.show');
+
+    Route::prefix('transactions')->group(function () {
+        Route::get('list', [TransactionController::class, 'index'])->name('transactions.index');
+        Route::get('detail/{id}', [TransactionController::class, 'detail'])->name('transactions.detail');
+    });
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -34,6 +39,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/index', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('products', ProductController::class);
         Route::resource('categories', ProductCategoryController::class);
+        Route::resource('transactions', TransactionController::class)->only([
+            'update', 'destroy'
+        ]);
     });
 });
 

@@ -13,11 +13,21 @@ class TransactionController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    // Admin Transaction List
     public function index()
     {
-        //
-    }
+        $transactions = Transaction::with('user')
+                            ->withCount('details');
 
+        if(Auth::user()->role !== 'admin'){
+            $transactions = $transactions->where('user_id', Auth::id());
+        }
+
+        $transactions = $transactions->paginate(10);
+        return view('admin.transaction.index', compact('transactions'));
+    }
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -74,10 +84,22 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      */
+    // Tranaction success page
     public function show(Transaction $transaction)
     {
         // show transaction success page
         return view('transaction_success', compact('transaction'));
+    }
+
+    // Display Transaction Detail for Admin
+    public function detail($id)
+    {
+        $transaction = Transaction::with([
+                                'details.product',
+                                'user'
+                            ])
+                            ->findOrFail($id);
+        return view('admin.transaction.detail', compact('transaction'));
     }
 
     /**
@@ -93,14 +115,26 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        //
+        $request->validate([
+            'status' => 'required|string|in:pending,completed,failed',
+        ]);
+
+        $transaction->status = $request->status;
+        $transaction->save();
+
+        return redirect()->back()->with('success', 'Transaction status updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Transaction $transaction)
+    public function destroy($id)
     {
-        //
+        $transaction = Transaction::findOrFail($id);
+
+        $transaction->details()->delete();
+        
+        $transaction->delete();
+        return redirect()->back()->with('success', 'Transaction deleted successfully.');
     }
 }

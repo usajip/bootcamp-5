@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,15 +15,6 @@ class DashboardController extends Controller
         $total_stock = Product::sum('stock');
         $total_category = ProductCategory::count();
         $total_clicks = Product::sum('click');
-
-        // $last_month_transaction  = Transaction::where('created_at', '>=', now()->subMonth())
-        // ->where('created_at', '<', now()->startOfMonth())
-        // ->where('status', 'completed')
-        // ->sum('amount');
-
-        // $current_month_transaction  = Transaction::where('created_at', '>=', now()->startOfMonth())
-        // ->where('status', 'completed')
-        // ->sum('amount');
 
         $data_dashboard = [
             'total_product' => [
@@ -47,6 +39,24 @@ class DashboardController extends Controller
             ],
         ];
 
-        return view('dashboard', compact('data_dashboard'));
+        // Daily Transaction Chart Data 7 days
+        $chart_data = Transaction::selectRaw('DATE(created_at) as date, SUM(total) as total')
+            ->where('created_at', '>=', now()->subDays(6)->startOfDay())
+            ->where('status', 'completed')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        $labels = [];
+        $salesData = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = now()->subDays($i)->format('Y-m-d');
+            $labels[] = now()->subDays($i)->format('d M');
+
+            $dayData = $chart_data->firstWhere('date', $date);
+            $salesData[] = $dayData ? (float) $dayData->total : 0;
+        }
+
+        return view('dashboard', compact('data_dashboard', 'labels', 'salesData'));
     }
 }
